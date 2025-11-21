@@ -7,12 +7,15 @@ export default function Employees() {
   if (isLoading) return <p>Loading employees...</p>
 
   return (
-    <div>
-      <h1>Employees</h1>
-      <ul>
+    <div className="page employees-page">
+      <div className="page-header">
+        <h1 className="page-title">Employees</h1>
+      </div>
+
+      <ul className="employee-list">
         {data?.map(e => (
-          <li key={e.id}>
-            <Link to={`/employees/${e.id}`}>{e.name}</Link>
+          <li className="employee-item" key={e.id}>
+            <Link className="employee-link" to={`/employees/${e.id}`}>{e.name}</Link>
           </li>
         ))}
       </ul>

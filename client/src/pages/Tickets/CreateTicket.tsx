@@ -20,17 +20,22 @@ export default function CreateTicket() {
 	}
 
 	return (
-		<form onSubmit={onSubmit}>
-			<h1>Create Ticket</h1>
-			<div>
-				<label>Title</label>
-				<Input value={title} onChange={e => setTitle(e.target.value)} />
+		<form onSubmit={onSubmit} className="page create-ticket-page form">
+			<h1 className="page-title">Create Ticket</h1>
+
+			<div className="form-row">
+				<label className="form-label">Title</label>
+				<Input className="input" value={title} onChange={e => setTitle(e.target.value)} />
 			</div>
-			<div>
-				<label>Description</label>
-				<textarea value={description} onChange={e => setDescription(e.target.value)} />
+
+			<div className="form-row">
+				<label className="form-label">Description</label>
+				<textarea className="textarea" value={description} onChange={e => setDescription(e.target.value)} />
 			</div>
-			<Button type="submit">Create</Button>
+
+			<div className="form-actions">
+				<Button className="btn primary" type="submit">Create</Button>
+			</div>
 		</form>
 	)
 }

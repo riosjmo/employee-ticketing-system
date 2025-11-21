@@ -15,10 +15,10 @@ export default function EmployeeDetails() {
 	if (!employee) return <p>Loading employee...</p>
 
 	return (
-		<div>
-			<h1>{employee.name}</h1>
-			<p>Email: {employee.email}</p>
-			<p>Role: {employee.role}</p>
+		<div className="page employee-details-page">
+			<h1 className="employee-name">{employee.name}</h1>
+			<p className="employee-email">Email: {employee.email}</p>
+			<p className="employee-role">Role: {employee.role}</p>
 		</div>
 	)
 }

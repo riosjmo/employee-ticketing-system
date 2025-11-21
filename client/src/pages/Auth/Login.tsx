@@ -4,6 +4,7 @@ import Input from "../../components/ui/Input"
 import Button from "../../components/ui/Button"
 import "./login.css"
 
+
 export default function Login() {
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
@@ -16,17 +17,22 @@ export default function Login() {
 	}
 
 	return (
-		<form onSubmit={onSubmit} style={{ maxWidth: 400 }}>
-			<h1>Login</h1>
-			<div>
-				<label>Username</label>
-				<Input value={username} onChange={e => setUsername(e.target.value)} />
+		<form onSubmit={onSubmit} className="page login-page">
+			<h1 className="page-title">Login</h1>
+
+			<div className="form-row">
+				<label className="form-label">Username</label>
+				<Input className="input" value={username} onChange={e => setUsername(e.target.value)} />
 			</div>
-			<div>
-				<label>Password</label>
-				<Input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+
+			<div className="form-row">
+				<label className="form-label">Password</label>
+				<Input className="input" type="password" value={password} onChange={e => setPassword(e.target.value)} />
 			</div>
-			<Button type="submit">Login</Button>
+
+			<div className="form-actions">
+				<Button className="btn primary" type="submit">Login</Button>
+			</div>
 		</form>
 	)
 }

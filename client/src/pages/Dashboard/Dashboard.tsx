@@ -3,16 +3,17 @@ import "./dashboard.css"
 
 export default function Dashboard() {
 	return (
-		<div>
-			<h1>Dashboard</h1>
-			<p>Welcome to the Employee Ticketing System demo.</p>
-			<nav>
-				<ul>
+		<div className="page dashboard-page">
+			<h1 className="page-title">Dashboard</h1>
+			<p className="lead">Welcome to the Employee Ticketing System demo.</p>
+
+			<nav className="dashboard-nav">
+				<ul className="nav-list">
 					<li>
-						<Link to="/tickets">Tickets</Link>
+						<Link className="nav-link" to="/tickets">Tickets</Link>
 					</li>
 					<li>
-						<Link to="/employees">Employees</Link>
+						<Link className="nav-link" to="/employees">Employees</Link>
 					</li>
 				</ul>
 			</nav>

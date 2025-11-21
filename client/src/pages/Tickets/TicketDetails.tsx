@@ -15,10 +15,10 @@ export default function TicketDetails() {
 	if (!ticket) return <p>Loading ticket...</p>
 
 	return (
-		<div>
-			<h1>{ticket.title}</h1>
-			<p>{ticket.description}</p>
-			<small>Created: {ticket.createdAt}</small>
+		<div className="page ticket-details-page">
+			<h1 className="ticket-title">{ticket.title}</h1>
+			<p className="ticket-desc">{ticket.description}</p>
+			<small className="ticket-meta">Created: {ticket.createdAt}</small>
 		</div>
 	)
 }

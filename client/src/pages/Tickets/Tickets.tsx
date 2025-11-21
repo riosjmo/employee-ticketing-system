@@ -8,14 +8,16 @@ export default function Tickets() {
   if (isLoading) return <p>Loading...</p>
 
   return (
-    <div>
-      <h1>Tickets</h1>
-      <Link to="/tickets/new">Create Ticket</Link>
+    <div className="page tickets-page">
+      <div className="page-header">
+        <h1 className="page-title">Tickets</h1>
+        <Link className="btn primary" to="/tickets/new">Create Ticket</Link>
+      </div>
 
-      <ul>
+      <ul className="ticket-list">
         {data?.map(t => (
-          <li key={t.id}>
-            <Link to={`/tickets/${t.id}`}>{t.title}</Link>
+          <li className="ticket-item" key={t.id}>
+            <Link className="ticket-link" to={`/tickets/${t.id}`}>{t.title}</Link>
           </li>
         ))}
       </ul>
