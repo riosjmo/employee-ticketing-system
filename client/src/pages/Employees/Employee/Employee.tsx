@@ -1,4 +1,4 @@
-import type { Employee } from "../../types/Employee"
+import type { Employee } from "../../../types/Employee"
 import "./employee.css"
 
 export default function EmployeeRow({ employee }: { employee: Employee }) {

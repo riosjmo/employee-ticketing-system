@@ -1,8 +1,9 @@
 import { useState } from "react"
-import { createTicket } from "../../api/tickets"
+import { createTicket } from "../../../api/tickets"
 import { useNavigate } from "react-router-dom"
-import Input from "../../components/ui/Input"
-import Button from "../../components/ui/Button"
+import Input from "../../../components/ui/Input"
+import Button from "../../../components/ui/Button"
+import "./createTicket.css"
 
 export default function CreateTicket() {
 	const [title, setTitle] = useState("")

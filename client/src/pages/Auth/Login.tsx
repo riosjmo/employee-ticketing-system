@@ -16,23 +16,25 @@ export default function Login() {
 		navigate("/")
 	}
 
-	return (
-		<form onSubmit={onSubmit} className="page login-page">
-			<h1 className="page-title">Login</h1>
+		return (
+			<div className="login-container">
+				<form onSubmit={onSubmit} className="login-card">
+					<h1 className="page-title">Login</h1>
 
-			<div className="form-row">
-				<label className="form-label">Username</label>
-				<Input className="input" value={username} onChange={e => setUsername(e.target.value)} />
-			</div>
+					<div className="form-row">
+						<label className="form-label">Username</label>
+						<Input className="input" value={username} onChange={e => setUsername(e.target.value)} />
+					</div>
 
-			<div className="form-row">
-				<label className="form-label">Password</label>
-				<Input className="input" type="password" value={password} onChange={e => setPassword(e.target.value)} />
-			</div>
+					<div className="form-row">
+						<label className="form-label">Password</label>
+						<Input className="input" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+					</div>
 
-			<div className="form-actions">
-				<Button className="btn primary" type="submit">Login</Button>
+					<div className="form-actions">
+						<Button className="btn primary" type="submit">Login</Button>
+					</div>
+				</form>
 			</div>
-		</form>
-	)
+		)
 }

@@ -2,10 +2,10 @@ import { createBrowserRouter } from "react-router-dom"
 import AppLayout from "../components/layout/AppLayout"
 import Dashboard from "../pages/Dashboard/Dashboard"
 import Tickets from "../pages/Tickets/Tickets"
-import TicketDetails from "../pages/Tickets/TicketDetails"
-import CreateTicket from "../pages/Tickets/CreateTicket"
+import TicketDetails from "../pages/Tickets/TicketDetails/TicketDetails"
+import CreateTicket from "../pages/Tickets/CreateTicket/CreateTicket"
 import Employees from "../pages/Employees/Employees"
-import EmployeeDetails from "../pages/Employees/EmployeeDetails"
+import EmployeeDetails from "../pages/Employees/EmployeeDetails/EmployeeDetails"
 import Login from "../pages/Auth/Login"
 
 const router = createBrowserRouter([

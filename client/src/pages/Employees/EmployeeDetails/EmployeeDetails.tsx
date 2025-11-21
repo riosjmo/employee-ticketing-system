@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { fetchEmployeeById } from "../../api/employee"
-import type { Employee } from "../../types/Employee"
+import { fetchEmployeeById } from "../../../api/employee"
+import type { Employee } from "../../../types/Employee"
+import "./employeeDetails.css"
 
 export default function EmployeeDetails() {
 	const { id } = useParams()

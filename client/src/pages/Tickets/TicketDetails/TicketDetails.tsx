@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { fetchTicketById } from "../../api/tickets"
-import type { Ticket } from "../../types/Ticket"
+import { fetchTicketById } from "../../../api/tickets"
+import type { Ticket } from "../../../types/Ticket"
+import "./ticketDetails.css"
 
 export default function TicketDetails() {
 	const { id } = useParams()
