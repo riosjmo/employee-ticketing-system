@@ -1,5 +1,6 @@
 import { useTickets } from "../../hooks/useTickets"
 import { Link } from "react-router-dom"
+import "./tickets.css"
 
 export default function Tickets() {
   const { data, isLoading } = useTickets()

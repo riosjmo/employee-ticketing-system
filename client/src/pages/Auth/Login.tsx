@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Input from "../../components/ui/Input"
 import Button from "../../components/ui/Button"
+import "./login.css"
 
 export default function Login() {
 	const [username, setUsername] = useState("")
