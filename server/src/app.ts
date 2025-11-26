@@ -1,12 +1,24 @@
-import express from "express"
-import cors from "cors"
-import ticketRoutes from "./routes/tickets.routes.js"
+import express from "express";
+import cors from "cors";
+import routes from "./routes/index.js";
+import { errorHandler } from "./middleware/errorHandler.js";
+import { notFound } from "./middleware/notFound.js";
 
-const app = express()
+const app = express();
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
-app.use("/tickets", ticketRoutes)
+// root routes
+app.use("/api", routes);
 
-export default app
+// health check (optional)
+app.get("/", (req, res) => {
+  res.json({ message: "Server is running" });
+});
+
+// 404 + error handler
+app.use(notFound);
+app.use(errorHandler);
+
+export default app;

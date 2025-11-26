@@ -1,19 +1,24 @@
-import express from "express";
-import cors from "cors";
+import app from "./app.js";
 import dotenv from "dotenv";
-import { env } from "process";
+import prisma from "./config/prisma.js";
 
 dotenv.config();
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+const PORT = process.env.PORT || 4000;
 
-app.get("/", (req, res) => {
-  res.json({ message: "Server is running" });
-});
+async function startServer() {
+  try {
+    await prisma.$connect();
+    console.log("Connected to PostgreSQL");
 
-const PORT = env.PORT || 4000
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
-})
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+
+  } catch (err) {
+    console.error("Failed to start server:", err);
+    process.exit(1);
+  }
+}
+
+startServer();
