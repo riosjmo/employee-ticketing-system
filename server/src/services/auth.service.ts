@@ -54,9 +54,13 @@ export async function storeRefreshToken(userId: string, token: string) {
   });
 }
 
-export async function revokeRefreshToken(tokenId: string) {
-  return prisma.refreshToken.update({
-    where: { id: tokenId },
+export async function revokeRefreshTokenByToken(token: string) {
+  // hash the token exactly the same way it was stored
+  const tokenHash = await bcrypt.hash(token, 10);
+
+  // update matching refresh tokens (if any)
+  return prisma.refreshToken.updateMany({
+    where: { tokenHash, revoked: false },
     data: { revoked: true },
   });
 }

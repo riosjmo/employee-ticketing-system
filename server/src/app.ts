@@ -3,6 +3,7 @@ import cors from "cors";
 import routes from "./routes/index.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { notFound } from "./middleware/notFound.js";
+import authRoutes from "./routes/auth.routes.js";
 
 const app = express();
 
@@ -11,6 +12,9 @@ app.use(express.json());
 
 // root routes
 app.use("/api", routes);
+
+// auth routes
+app.use("/api/auth", authRoutes);
 
 // health check (optional)
 app.get("/", (req, res) => {
