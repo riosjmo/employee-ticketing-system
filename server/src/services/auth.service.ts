@@ -1,9 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt, { type SignOptions, type Secret } from "jsonwebtoken";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../config/prisma.js";
 import { authConfig } from "../config/auth.js";
-
-const prisma = new PrismaClient();
 
 interface JWTPayload {
   userId: string;

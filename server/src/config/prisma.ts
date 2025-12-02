@@ -1,5 +1,8 @@
-import { PrismaClient } from "@prisma/client";
+import pkg from "@prisma/client";
 
-const prisma = new PrismaClient();
+// Support different Prisma client export shapes across versions
+const PrismaClientCtor = (pkg as any).PrismaClient ?? (pkg as any).default ?? pkg;
+
+const prisma = new (PrismaClientCtor as any)();
 
 export default prisma;

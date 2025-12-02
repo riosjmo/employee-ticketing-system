@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../config/prisma.js";
 import {
   hashPassword,
   verifyPassword,
@@ -9,7 +9,6 @@ import {
   revokeRefreshTokenByToken,
 } from "../services/auth.service.js";
 
-const prisma = new PrismaClient();
 
 export async function register(req: Request, res: Response) {
   try {
@@ -30,7 +29,18 @@ export async function register(req: Request, res: Response) {
       },
     });
 
-    res.status(201).json({ id: newUser.id, email: newUser.email });
+    // Create tokens
+    const accessToken = createAccessToken(newUser.id);
+    const refreshToken = createRefreshToken(newUser.id);
+
+    await storeRefreshToken(newUser.id, refreshToken);
+
+    // Return user info + tokens
+    res.status(201).json({
+      user: { id: newUser.id, email: newUser.email },
+      accessToken,
+      refreshToken,
+    });
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
   }

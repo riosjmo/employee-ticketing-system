@@ -4,6 +4,7 @@ import routes from "./routes/index.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { notFound } from "./middleware/notFound.js";
 import authRoutes from "./routes/auth.routes.js";
+import fileroutes from "./routes/fileRoutes.js";
 
 const app = express();
 
@@ -14,12 +15,15 @@ app.use(express.json());
 app.use("/api", routes);
 
 // auth routes
-app.use("/api/auth", authRoutes);
+app.use("/auth", authRoutes);
 
 // health check (optional)
 app.get("/", (req, res) => {
   res.json({ message: "Server is running" });
 });
+
+// file routes
+app.use("/files", fileroutes);
 
 // 404 + error handler
 app.use(notFound);
