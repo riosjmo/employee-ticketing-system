@@ -6,6 +6,7 @@ import { notFound } from "./middleware/notFound.js";
 import authRoutes from "./routes/auth.routes.js";
 import fileroutes from "./routes/fileRoutes.js";
 import { serverAdapter } from "./admin/queues.js";
+import videoJobsRoutes from "./routes/videoJobs.routes.js";
 
 const app = express();
 
@@ -25,6 +26,9 @@ app.use("/admin/queues", serverAdapter.getRouter());
 app.get("/", (req, res) => {
   res.json({ message: "Server is running" });
 });
+
+// video jobs routes
+app.use("/jobs", videoJobsRoutes);
 
 // file routes
 app.use("/files", fileroutes);
