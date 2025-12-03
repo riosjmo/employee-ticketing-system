@@ -4,21 +4,19 @@ import { redis } from "../config/redis.js";
 const worker = new Worker(
   "emailQueue",
   async job => {
-    console.log("Processing email job:", job.name);
-    console.log("Payload:", job.data);
+    console.log("📨 Processing email job:", job.name, job.data);
 
-    // Simulate sending email (replace later with actual email service)
-    await new Promise(res => setTimeout(res, 2000));
+    // Simulate an email send
+    if (!job.data.email) {
+      throw new Error("Email is missing!");
+    }
 
-    console.log("Email sent!");
+    await new Promise(res => setTimeout(res, 1500));
+
+    console.log("✅ Email sent successfully");
   },
-  { connection: redis }
+  {
+    connection: redis,
+    concurrency: 5, // process 5 jobs in parallel
+  }
 );
-
-worker.on("completed", job => {
-  console.log(`Job ${job.id} completed`);
-});
-
-worker.on("failed", (job, err) => {
-  console.error(`Job ${job?.id} failed:`, err);
-});
