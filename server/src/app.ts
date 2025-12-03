@@ -5,6 +5,7 @@ import { errorHandler } from "./middleware/errorHandler.js";
 import { notFound } from "./middleware/notFound.js";
 import authRoutes from "./routes/auth.routes.js";
 import fileroutes from "./routes/fileRoutes.js";
+import { serverAdapter } from "./admin/queues.js";
 
 const app = express();
 
@@ -16,6 +17,9 @@ app.use("/api", routes);
 
 // auth routes
 app.use("/auth", authRoutes);
+
+// bull board admin UI for queues
+app.use("/admin/queues", serverAdapter.getRouter());
 
 // health check (optional)
 app.get("/", (req, res) => {
