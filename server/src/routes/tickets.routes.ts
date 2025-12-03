@@ -1,5 +1,6 @@
 import { Router } from "express"
 import prisma from "../config/prisma.js"
+import { QueueService } from "../services/queue.service.js";
 
 const router = Router()
 
@@ -29,6 +30,18 @@ router.post("/", async (req, res) => {
 	})
 	res.status(201).json(ticket)
 })
+
+// Test email queue
+router.post("/test-email", async (req, res) => {
+  const { email } = req.body;
+
+  const job = await QueueService.sendWelcomeEmail(email);
+
+  res.json({
+    message: "Email job queued!",
+    jobId: job.id,
+  });
+});
 
 // Update ticket
 router.put("/:id", async (req, res) => {
