@@ -1,17 +1,27 @@
 import { ticketsRepo } from "../repositories/tickets.repo.js"
 
 export const ticketsService = {
-  getAll() {
-    return ticketsRepo.findAll()
+  listAll() {
+    return ticketsRepo.findAllWithOwnerAndFiles();
   },
 
   getOne(id: string) {
-    const ticket = ticketsRepo.findById(id)
-    if (!ticket) throw new Error("Ticket not found")
-    return ticket
+    return ticketsRepo.findByIdWithOwnerAndFiles(id);
   },
 
-  create(data: { title: string; description?: string }) {
-    return ticketsRepo.create(data)
+  create(userId: string, payload: { title: string; description?: string }) {
+    return ticketsRepo.create({
+      title: payload.title,
+      description: payload.description,
+      ownerId: userId,
+    });
   },
-}
+
+  update(id: string, data: any) {
+    return ticketsRepo.update(id, data);
+  },
+
+  delete(id: string) {
+    return ticketsRepo.delete(id);
+  }
+};

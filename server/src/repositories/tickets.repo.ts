@@ -5,24 +5,35 @@ import prisma from "../config/prisma.js"
 let tickets: Ticket[] = []
 
 export const ticketsRepo = {
-  findAll(): Ticket[] {
-    return tickets
+  create(data: { title: string; description?: string; ownerId?: string }) {
+    return prisma.ticket.create({
+      data: {
+        title: data.title,
+        description: data.description,
+        owner: data.ownerId ? { connect: { id: data.ownerId } } : undefined,
+      },
+    });
   },
 
-  findById(id: string): Ticket | undefined {
-    return tickets.find(t => t.id === id)
+  findAllWithOwnerAndFiles() {
+    return prisma.ticket.findMany({
+      include: { owner: { select: { id: true, email: true } }, files: true },
+      orderBy: { createdAt: "desc" },
+    });
   },
 
-  create(data: Partial<Ticket>): Ticket {
-    const newTicket: Ticket = {
-      id: randomUUID(),
-      title: data.title!,
-      description: data.description || "",
-      status: "open",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }
-    tickets.push(newTicket)
-    return newTicket
+  findByIdWithOwnerAndFiles(id: string) {
+    return prisma.ticket.findUnique({
+      where: { id },
+      include: { owner: { select: { id: true, email: true } }, files: true },
+    });
   },
-}
+
+  update(id: string, data: any) {
+    return prisma.ticket.update({ where: { id }, data });
+  },
+
+  delete(id: string) {
+    return prisma.ticket.delete({ where: { id } });
+  }
+};
