@@ -53,7 +53,7 @@ export async function login(req: Request, res: Response) {
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) return res.status(401).json({ message: "Invalid credentials" });
 
-    const validPassword = await verifyPassword(password, user.password);
+    const validPassword = await verifyPassword(password, user.passwordHash);
     if (!validPassword)
       return res.status(401).json({ message: "Invalid credentials" });
 
