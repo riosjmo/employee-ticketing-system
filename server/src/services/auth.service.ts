@@ -40,6 +40,21 @@ export function createRefreshToken(userId: string) {
   );
 }
 
+// ---------------------------
+// USER & TOKEN DB OPERATIONS
+// ---------------------------
+
+export async function registerUser(email: string, password: string) {
+  const hashed = await hashPassword(password);
+
+  return prisma.user.create({
+    data: {
+      email,
+      password: hashed,
+    },
+  });
+}
+
 // Save hashed refresh token in DB
 export async function storeRefreshToken(userId: string, token: string) {
   const tokenHash = await bcrypt.hash(token, 10);

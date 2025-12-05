@@ -10,41 +10,29 @@ import {
 } from "../services/auth.service.js";
 
 
-export async function register(req: Request, res: Response) {
+export const register = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
-
-    // Check if user exists
-    const existingUser = await prisma.user.findUnique({ where: { email } });
-    if (existingUser) {
-      return res.status(400).json({ message: "Email already registered" });
-    }
 
     const passwordHash = await hashPassword(password);
 
     const newUser = await prisma.user.create({
       data: {
-        email,
-        password: passwordHash,
-      },
+        email: email,
+        passwordHash: passwordHash,   // ✔ correct
+      }
     });
 
-    // Create tokens
-    const accessToken = createAccessToken(newUser.id);
-    const refreshToken = createRefreshToken(newUser.id);
-
-    await storeRefreshToken(newUser.id, refreshToken);
-
-    // Return user info + tokens
     res.status(201).json({
-      user: { id: newUser.id, email: newUser.email },
-      accessToken,
-      refreshToken,
+      message: "User registered successfully",
+      user: { id: newUser.id, email: newUser.email }
     });
-  } catch (err) {
-    res.status(500).json({ message: "Internal server error" });
+
+  } catch (error: any) {
+    console.error("REGISTER ERROR:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
 export async function login(req: Request, res: Response) {
   try {
@@ -64,6 +52,7 @@ export async function login(req: Request, res: Response) {
 
     res.status(200).json({ accessToken, refreshToken });
   } catch (err) {
+    console.error("LOGIN ERROR:", err);
     res.status(500).json({ message: "Internal server error" });
   }
 }
