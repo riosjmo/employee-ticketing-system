@@ -42,6 +42,7 @@ export async function login(req: Request, res: Response) {
     if (!user) return res.status(401).json({ message: "Invalid credentials" });
 
     const validPassword = await verifyPassword(password, user.passwordHash);
+
     if (!validPassword)
       return res.status(401).json({ message: "Invalid credentials" });
 

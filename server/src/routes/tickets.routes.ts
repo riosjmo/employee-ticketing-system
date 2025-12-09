@@ -1,35 +1,35 @@
 import { Router } from "express"
 import prisma from "../config/prisma.js"
 import { QueueService } from "../services/queue.service.js";
+import { ticketsRepo } from "../repositories/tickets.repo.js";
 
 const router = Router()
 
 // List all tickets
 router.get("/", async (req, res) => {
-	const tickets = await prisma.ticket.findMany()
-	res.json(tickets)
+	const tickets = await ticketsRepo.findAllWithOwnerAndFiles();
+	res.json(tickets);
 })
 
 // Get ticket by id
 router.get("/:id", async (req, res) => {
 	const { id } = req.params
-	const ticket = await prisma.ticket.findUnique({ where: { id } })
+	const ticket = await ticketsRepo.findByIdWithOwnerAndFiles(id);
 	if (!ticket) return res.status(404).json({ message: "Ticket not found" })
 	res.json(ticket)
 })
 
 // Create ticket
 router.post("/", async (req, res) => {
-	const { title, description, status } = req.body
-	const ticket = await prisma.ticket.create({
-		data: {
-			title,
-			description: description ?? "",
-			status: status ?? "open",
-		},
-	})
-	res.status(201).json(ticket)
-})
+  const { title, description } = req.body;
+
+  const ticket = await ticketsRepo.create({
+    title,
+    description: description ?? "",
+  });
+
+  res.status(201).json(ticket);
+});
 
 // Test email queue
 router.post("/test-email", async (req, res) => {

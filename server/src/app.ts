@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth.routes.js";
 import fileroutes from "./routes/fileRoutes.js";
 import { serverAdapter } from "./admin/queues.js";
 import videoJobsRoutes from "./routes/videoJobs.routes.js";
+import ticketRoutes from "./routes/tickets.routes.js";
 
 const app = express();
 
@@ -15,6 +16,9 @@ app.use(express.json());
 
 // root routes
 app.use("/api", routes);
+
+// ticket routes
+app.use("/tickets", ticketRoutes);
 
 // auth routes
 app.use("/auth", authRoutes);
