@@ -15,3 +15,8 @@ export async function createTicket(data: Partial<Ticket>) {
   const res = await api.post<Ticket>("/tickets", data)
   return res.data
 }
+
+export async function updateTicket(id: string, data: Partial<Ticket>) {
+  const res = await api.put<Ticket>(`/tickets/${id}`, data)
+  return res.data
+}
