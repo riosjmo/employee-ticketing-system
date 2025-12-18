@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { fetchTicketById, updateTicket } from "../../../api/tickets"
+import { useParams, useNavigate } from "react-router-dom"
+import { fetchTicketById, updateTicket, deleteTicket } from "../../../api/tickets"
 import type { Ticket } from "../../../types/Ticket"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import "./ticketDetails.css"
 
 export default function TicketDetails() {
@@ -26,6 +27,26 @@ export default function TicketDetails() {
 			console.error("Failed to update ticket:", err)
 		} finally {
 			setUpdating(false)
+		}
+	}
+
+	const queryClient = useQueryClient()
+	const deleteMutation = useMutation({
+		mutationFn: (id: string) => deleteTicket(id),
+		onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tickets"] }),
+	})
+
+	const navigate = useNavigate()
+
+	const handleDelete = async () => {
+		if (!ticket) return
+		const ok = window.confirm("Delete this ticket? This action cannot be undone.")
+		if (!ok) return
+		try {
+			await deleteMutation.mutateAsync(ticket.id)
+			navigate("/tickets")
+		} catch (err) {
+			console.error("Failed to delete ticket:", err)
 		}
 	}
 
@@ -70,6 +91,14 @@ export default function TicketDetails() {
 						className="edit-btn"
 					>
 						Edit
+					</button>
+					<button
+						onClick={handleDelete}
+						className="delete-btn"
+						disabled={deleteMutation.status === "pending"}
+						style={{ marginLeft: "0.5rem" }}
+					>
+						{deleteMutation.status === "pending" ? "Deleting..." : "Delete"}
 					</button>
 				</>
 			) : (

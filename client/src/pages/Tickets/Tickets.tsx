@@ -1,12 +1,19 @@
 import { useState } from "react"
 import { useTickets } from "../../hooks/useTickets"
 import { Link } from "react-router-dom"
-import { updateTicket } from "../../api/tickets"
+import { updateTicket, deleteTicket } from "../../api/tickets"
+import { useQueryClient, useMutation } from "@tanstack/react-query"
 import "./tickets.css"
 
 export default function Tickets() {
   const { data, isLoading } = useTickets()
   const [updating, setUpdating] = useState<string | null>(null)
+  const queryClient = useQueryClient()
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => deleteTicket(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tickets"] }),
+  })
 
   const handleStatusChange = async (ticketId: string, newStatus: string) => {
     setUpdating(ticketId)
@@ -16,6 +23,16 @@ export default function Tickets() {
       console.error("Failed to update ticket:", err)
     } finally {
       setUpdating(null)
+    }
+  }
+
+  const handleDelete = async (ticketId: string) => {
+    const ok = window.confirm("Delete this ticket? This action cannot be undone.")
+    if (!ok) return
+    try {
+      await deleteMutation.mutateAsync(ticketId)
+    } catch (err) {
+      console.error("Failed to delete ticket:", err)
     }
   }
 
@@ -43,6 +60,13 @@ export default function Tickets() {
                 <option value="in-progress">In Progress</option>
                 <option value="closed">Closed</option>
               </select>
+              <button
+                onClick={() => handleDelete(t.id)}
+                disabled={deleteMutation.status === "pending"}
+                style={{ marginLeft: "0.5rem", padding: "0.4rem 0.6rem", cursor: deleteMutation.status === "pending" ? "wait" : "pointer" }}
+              >
+                Delete
+              </button>
             </div>
           </li>
         ))}
