@@ -6,6 +6,7 @@ import "./login.css"
 import { useAuth } from "../../contexts/AuthContext"
 
 export default function Register() {
+  const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState<string | null>(null)
@@ -18,7 +19,7 @@ export default function Register() {
     setError(null)
     setLoading(true)
     try {
-      await register(email, password)
+      await register(name, email, password)
       navigate("/login")
     } catch (err: any) {
       setError(err?.response?.data?.message || err?.message || "Registration failed")
@@ -33,6 +34,11 @@ export default function Register() {
         <h1 className="page-title">Register</h1>
 
         {error && <div className="form-error">{error}</div>}
+
+        <div className="form-row">
+          <label className="form-label">Full name</label>
+          <Input className="input" value={name} onChange={e => setName(e.target.value)} />
+        </div>
 
         <div className="form-row">
           <label className="form-label">Email</label>

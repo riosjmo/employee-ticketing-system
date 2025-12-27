@@ -7,7 +7,7 @@ type AuthContextValue = {
   refreshToken: string | null
   isAuthenticated: boolean
   login: (email: string, password: string) => Promise<void>
-  register: (email: string, password: string) => Promise<void>
+  register: (name: string, email: string, password: string) => Promise<void>
   logout: () => Promise<void>
 }
 
@@ -36,8 +36,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     api.defaults.headers.common["Authorization"] = `Bearer ${data.accessToken}`
   }
 
-  const register = async (email: string, password: string) => {
-    await registerRequest(email, password)
+  const register = async (name: string, email: string, password: string) => {
+    await registerRequest(name, email, password)
   }
 
   const logout = async () => {

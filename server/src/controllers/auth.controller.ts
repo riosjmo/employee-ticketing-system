@@ -12,24 +12,38 @@ import {
 
 export const register = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
+
+    // Basic validation
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "name, email and password are required" });
+    }
 
     const passwordHash = await hashPassword(password);
 
-    const newUser = await prisma.user.create({
-      data: {
-        email: email,
-        passwordHash: passwordHash,   // ✔ correct
-      }
-    });
+    try {
+      const newUser = await prisma.user.create({
+        data: {
+          name: name,
+          email: email,
+          passwordHash: passwordHash,
+        }
+      });
 
-    res.status(201).json({
-      message: "User registered successfully",
-      user: { id: newUser.id, email: newUser.email }
-    });
+      return res.status(201).json({
+        message: "User registered successfully",
+        user: { id: newUser.id, email: newUser.email }
+      });
+    } catch (createErr: any) {
+      // Handle unique constraint (duplicate email)
+      if (createErr?.code === 'P2002') {
+        return res.status(409).json({ message: 'Email already in use' });
+      }
+      throw createErr;
+    }
 
   } catch (error: any) {
-    console.error("REGISTER ERROR:", error);
+    console.error("REGISTER ERROR:", error?.stack || error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };

@@ -5,6 +5,7 @@ import { errorHandler } from "./middleware/errorHandler.js";
 import { notFound } from "./middleware/notFound.js";
 import authRoutes from "./routes/auth.routes.js";
 import fileroutes from "./routes/fileRoutes.js";
+import employeesRoutes from "./routes/employees.routes.js";
 import { serverAdapter } from "./admin/queues.js";
 import videoJobsRoutes from "./routes/videoJobs.routes.js";
 import ticketRoutes from "./routes/tickets.routes.js";
@@ -22,6 +23,9 @@ app.use("/tickets", ticketRoutes);
 
 // auth routes
 app.use("/auth", authRoutes);
+
+// employees routes
+app.use("/employees", employeesRoutes);
 
 // bull board admin UI for queues
 app.use("/admin/queues", serverAdapter.getRouter());
