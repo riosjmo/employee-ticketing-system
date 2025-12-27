@@ -1,0 +1,19 @@
+/* Dashboard text color adjustments to ensure readability */
+.dashboard-page,
+.dashboard-page .page-title,
+.dashboard-page .lead,
+.dashboard-page .nav-link {
+	color: #4a4a4a;
+}
+
+.dashboard-nav .nav-list {
+	list-style: none;
+	padding: 0;
+}
+
+.dashboard-nav .nav-link {
+	display: inline-block;
+	padding: 8px 12px;
+	border-radius: 6px;
+	text-decoration: none;
+}

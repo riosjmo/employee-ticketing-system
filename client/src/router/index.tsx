@@ -7,11 +7,24 @@ import CreateTicket from "../pages/Tickets/CreateTicket/CreateTicket"
 import Employees from "../pages/Employees/Employees"
 import EmployeeDetails from "../pages/Employees/EmployeeDetails/EmployeeDetails"
 import Login from "../pages/Auth/Login"
+import Register from "../pages/Auth/Register"
+import { useAuth } from "../contexts/AuthContext"
+import { Navigate } from "react-router-dom"
+
+function RequireAuth({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated } = useAuth()
+  if (!isAuthenticated) return <Navigate to="/login" replace />
+  return children
+}
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <AppLayout />,
+    element: (
+      <RequireAuth>
+        <AppLayout />
+      </RequireAuth>
+    ),
     children: [
       { path: "/", element: <Dashboard /> },
       { path: "/tickets", element: <Tickets /> },
@@ -22,6 +35,7 @@ const router = createBrowserRouter([
     ],
   },
   { path: "/login", element: <Login /> },
+  { path: "/register", element: <Register /> },
 ])
 
 export default router

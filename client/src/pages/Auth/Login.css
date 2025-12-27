@@ -21,6 +21,20 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
+/* Ensure text is readable (gray) on the white card */
+.login-card,
+.login-card .form-row,
+.login-card .form-actions,
+.login-card label,
+.login-card .page-title {
+  color: #4a4a4a;
+}
+
+.login-card .form-error {
+  color: #8b1e1e;
+  margin-bottom: 8px;
+}
+
 .login-card .form-row {
   margin-bottom: 12px;
 }
