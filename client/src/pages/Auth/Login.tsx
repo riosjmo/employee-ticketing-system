@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom"
 import Input from "../../components/ui/Input"
 import Button from "../../components/ui/Button"
 import "./login.css"
-import { useAuth } from "../../contexts/AuthContext"
+import { useAuth } from "../../contexts/auth"
 
 export default function Login() {
 	const [email, setEmail] = useState("")
@@ -20,8 +20,15 @@ export default function Login() {
 		try {
 			await login(email, password)
 			navigate("/")
-		} catch (err: any) {
-			setError(err?.response?.data?.message || err?.message || "Login failed")
+		} catch (err: unknown) {
+			const typedErr = err as { response?: { data?: { message?: string } } } | Error | null
+			let message = "Login failed"
+			if (typedErr && typeof typedErr === "object" && "response" in typedErr && typedErr.response?.data?.message) {
+				message = typedErr.response.data.message
+			} else if (typedErr instanceof Error) {
+				message = typedErr.message
+			}
+			setError(message)
 		} finally {
 			setLoading(false)
 		}

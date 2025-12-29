@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom"
 import Input from "../../components/ui/Input"
 import Button from "../../components/ui/Button"
 import "./login.css"
-import { useAuth } from "../../contexts/AuthContext"
+import { useAuth } from "../../contexts/auth"
 
 export default function Register() {
   const [name, setName] = useState("")
@@ -21,8 +21,15 @@ export default function Register() {
     try {
       await register(name, email, password)
       navigate("/login")
-    } catch (err: any) {
-      setError(err?.response?.data?.message || err?.message || "Registration failed")
+    } catch (err: unknown) {
+      const typedErr = err as { response?: { data?: { message?: string } } } | Error | null
+      let message = "Registration failed"
+      if (typedErr && typeof typedErr === "object" && "response" in typedErr && typedErr.response?.data?.message) {
+        message = typedErr.response.data.message
+      } else if (typedErr instanceof Error) {
+        message = typedErr.message
+      }
+      setError(message)
     } finally {
       setLoading(false)
     }
