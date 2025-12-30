@@ -16,7 +16,7 @@ export default function Dashboard() {
 						<Link className="nav-link" to="/employees">Employees</Link>
 					</li>
 				</ul>
-			</nav>
+			</nav> 
 		</div>
 	)
 }
