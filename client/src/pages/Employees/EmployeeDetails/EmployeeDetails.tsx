@@ -7,13 +7,26 @@ import "./employeeDetails.css"
 export default function EmployeeDetails() {
 	const { id } = useParams()
 	const [employee, setEmployee] = useState<Employee | null>(null)
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState<string | null>(null)
 
 	useEffect(() => {
 		if (!id) return
-		fetchEmployeeById(id).then(setEmployee).catch(() => setEmployee(null))
+		setLoading(true)
+		setError(null)
+		fetchEmployeeById(id)
+			.then(e => setEmployee(e))
+			.catch((err: any) => {
+				if (err?.response?.status === 404) setError("Employee not found")
+				else setError("Failed to load employee")
+				setEmployee(null)
+			})
+			.finally(() => setLoading(false))
 	}, [id])
 
-	if (!employee) return <p>Loading employee...</p>
+	if (loading) return <p>Loading employee...</p>
+	if (error) return <p>{error}</p>
+	if (!employee) return <p>Employee not found</p>
 
 	return (
 		<div className="page employee-details-page">
