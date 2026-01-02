@@ -42,28 +42,28 @@ export default function Tickets() {
     <div className="page tickets-page">
       <div className="page-header">
         <h1 className="page-title">Tickets</h1>
-        <Link className="btn primary" to="/tickets/new">Create Ticket</Link>
+        <Link className="page-subtitle" to="/tickets/new">Create Ticket</Link>
       </div>
 
       <ul className="ticket-list">
         {data?.map(t => (
           <li className="ticket-item" key={t.id}>
-            <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+            <div className="ticket-row">
               <Link className="ticket-link" to={`/tickets/${t.id}`}>{t.title}</Link>
               <select
+                className="ticket-select"
                 value={t.status || "open"}
                 onChange={(e) => handleStatusChange(t.id, e.target.value)}
                 disabled={updating === t.id}
-                style={{ padding: "0.4rem", cursor: updating === t.id ? "wait" : "pointer" }}
               >
                 <option value="open">Open</option>
                 <option value="in-progress">In Progress</option>
                 <option value="closed">Closed</option>
               </select>
               <button
+                className="ticket-delete-btn"
                 onClick={() => handleDelete(t.id)}
                 disabled={deleteMutation.status === "pending"}
-                style={{ marginLeft: "0.5rem", padding: "0.4rem 0.6rem", cursor: deleteMutation.status === "pending" ? "wait" : "pointer" }}
               >
                 Delete
               </button>

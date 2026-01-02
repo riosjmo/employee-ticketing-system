@@ -1,0 +1,54 @@
+/* Ticket list styles */
+.ticket-list {
+  list-style: none;
+  padding: 0;
+  margin: 10;
+}
+
+.page-subtitle {
+  font-size: 18px;
+  background-color: #4e8350;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  position: relative;
+  bottom: 5px;
+}
+
+.page-subtitle:hover {
+  background-color: #3e6f3f;
+  text-decoration: none;
+  color: white;
+}
+
+.ticket-item {
+  margin-bottom: 1rem;
+}
+
+/* Ticket row container */
+.ticket-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Ticket select dropdown */
+.ticket-select {
+  padding: 0.4rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.ticket-select:disabled {
+  cursor: wait;
+}
+
+/* Delete button styling */
+.ticket-delete-btn {
+  margin-left: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+}
+
+.ticket-delete-btn:disabled {
+  cursor: wait;
+}
