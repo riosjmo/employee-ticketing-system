@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 import { useEmployees } from "../../hooks/useEmployees"
-import "./employees.css"
 
 export default function Employees() {
   const { data, isLoading } = useEmployees()
