@@ -3,7 +3,32 @@
 .dashboard-page .page-title,
 .dashboard-page .lead,
 .dashboard-page .nav-link {
-	color: #be9a9a;
+	color: #e5e4e4
+}
+
+.page-title {
+	font-size: 75px;
+	margin-bottom: 1rem;
+	position: relative;
+	bottom: 20px;
+}
+
+.lead {
+	font-size: 18px;
+	margin-bottom: 10px;
+	position: relative;
+	bottom: 10px;
+	left: 20px;
+	width: 400px;
+}
+
+.nav-link {
+	font-size: 20px;
+	display: flex;
+}
+
+.nav-link:hover {
+	color: #ada8a8;
 }
 
 .dashboard-nav .nav-list {
@@ -11,9 +36,11 @@
 	padding: 0;
 }
 
-.dashboard-nav .nav-link {
-	display: inline-block;
-	padding: 8px 12px;
-	border-radius: 6px;
-	text-decoration: none;
+.dashboard-nav .nav-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+	position: relative;
+	left: 90px;
 }
