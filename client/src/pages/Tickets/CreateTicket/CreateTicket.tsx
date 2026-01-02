@@ -35,7 +35,7 @@ export default function CreateTicket() {
 			</div>
 
 			<div className="form-actions">
-				<Button className="btn primary" type="submit">Create</Button>
+				<Button className="create-btn" type="submit">Create</Button>
 			</div>
 		</form>
 	)

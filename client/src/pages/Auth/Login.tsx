@@ -42,18 +42,18 @@ export default function Login() {
 				{error && <div className="form-error">{error}</div>}
 
 				<div className="form-row">
-					<label className="form-label">Email</label>
-					<Input className="input" value={email} onChange={e => setEmail(e.target.value)} />
+					<label className="form-label">Email *</label>
+					<Input className="input"  required value={email} onChange={e => setEmail(e.target.value)} />
 				</div>
 
 				<div className="form-row">
-					<label className="form-label">Password</label>
-					<Input className="input" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+					<label className="form-label">Password *</label>
+					<Input className="input" type="password" required value={password} onChange={e => setPassword(e.target.value)} />
 				</div>
 
 				<div className="form-actions">
 					<Button className="btn primary" type="submit" disabled={loading}>{loading ? "Logging in..." : "Login"}</Button>
-					<Link to="/register" style={{ marginLeft: "1rem" }}>Register</Link>
+					<Link to="/register" className="login-switch">Register</Link>
 				</div>
 			</form>
 		</div>

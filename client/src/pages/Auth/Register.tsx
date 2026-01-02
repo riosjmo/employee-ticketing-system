@@ -43,23 +43,23 @@ export default function Register() {
         {error && <div className="form-error">{error}</div>}
 
         <div className="form-row">
-          <label className="form-label">Full name</label>
-          <Input className="input" value={name} onChange={e => setName(e.target.value)} />
+          <label className="form-label">Full Name *</label>
+          <Input className="input" required value={name} onChange={e => setName(e.target.value)} />
         </div>
 
         <div className="form-row">
-          <label className="form-label">Email</label>
-          <Input className="input" value={email} onChange={e => setEmail(e.target.value)} />
+          <label className="form-label">Email *</label>
+          <Input className="input" required value={email} onChange={e => setEmail(e.target.value)} />
         </div>
 
         <div className="form-row">
-          <label className="form-label">Password</label>
-          <Input className="input" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+          <label className="form-label">Password *</label>
+          <Input className="input" type="password" required value={password} onChange={e => setPassword(e.target.value)} />
         </div>
 
         <div className="form-actions">
           <Button className="btn primary" type="submit" disabled={loading}>{loading ? "Registering..." : "Register"}</Button>
-          <Link to="/login" style={{ marginLeft: "1rem" }}>Back to login</Link>
+          <Link to="/login" className="login-switch">Back to login</Link>
         </div>
       </form>
     </div>
