@@ -7,7 +7,6 @@ import authRoutes from "./routes/auth.routes.js";
 import fileroutes from "./routes/fileRoutes.js";
 import employeesRoutes from "./routes/employees.routes.js";
 import { serverAdapter } from "./admin/queues.js";
-import videoJobsRoutes from "./routes/videoJobs.routes.js";
 import ticketRoutes from "./routes/tickets.routes.js";
 
 const app = express();
@@ -34,9 +33,6 @@ app.use("/admin/queues", serverAdapter.getRouter());
 app.get("/", (req, res) => {
   res.json({ message: "Server is running" });
 });
-
-// video jobs routes
-app.use("/jobs", videoJobsRoutes);
 
 // file routes
 app.use("/files", fileroutes);

@@ -85,14 +85,3 @@ export async function logout(req: Request, res: Response) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
-
-export async function refresh(req: Request, res: Response) {
-  try {
-    const { refreshToken } = req.body;
-    // Here i verify the refresh token and issue a new access token
-    // I'll integrate JWT verify and token lookup next
-    res.status(200).json({ message: "Refresh token endpoint (to be completed)" });
-  } catch (err) {
-    res.status(500).json({ message: "Internal server error" });
-  }
-}

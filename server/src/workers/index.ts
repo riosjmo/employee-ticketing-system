@@ -1,3 +1,3 @@
-import "./email.worker.ts";
+import "./email.worker.js";
 
 console.log("All workers loaded and running...");
