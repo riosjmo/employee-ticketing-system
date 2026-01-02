@@ -2,6 +2,7 @@ import { useState } from "react"
 import { createTicket } from "../../../api/tickets"
 import { useNavigate } from "react-router-dom"
 import Input from "../../../components/ui/Input"
+import Textarea from "../../../components/ui/Textarea"
 import Button from "../../../components/ui/Button"
 import "./createTicket.css"
 
@@ -26,16 +27,17 @@ export default function CreateTicket() {
 
 			<div className="form-row">
 				<label className="form-label">Title</label>
-				<Input className="input" value={title} onChange={e => setTitle(e.target.value)} />
+				<Input className="textarea" value={title} onChange={e => setTitle(e.target.value)} />
 			</div>
 
 			<div className="form-row">
 				<label className="form-label">Description</label>
-				<textarea className="textarea" value={description} onChange={e => setDescription(e.target.value)} />
+				<Textarea className="textarea" value={description} onChange={e => setDescription(e.target.value)} />
 			</div>
 
 			<div className="form-actions">
 				<Button className="create-btn" type="submit">Create</Button>
+				<Button className="cancel-btn" type="button" onClick={() => navigate("/tickets")}>Cancel</Button>
 			</div>
 		</form>
 	)
