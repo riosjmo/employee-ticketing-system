@@ -35,7 +35,6 @@ export const register = async (req: Request, res: Response) => {
         user: { id: newUser.id, email: newUser.email }
       });
     } catch (createErr: any) {
-      // Handle unique constraint (duplicate email)
       if (createErr?.code === 'P2002') {
         return res.status(409).json({ message: 'Email already in use' });
       }
@@ -74,7 +73,7 @@ export async function login(req: Request, res: Response) {
 
 export async function logout(req: Request, res: Response) {
   try {
-    const { refreshToken } = req.body; // send raw JWT now
+    const { refreshToken } = req.body;
     if (!refreshToken) return res.status(400).json({ message: "No token provided" });
 
     await revokeRefreshTokenByToken(refreshToken);

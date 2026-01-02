@@ -1,8 +1,5 @@
 import type { Ticket } from "../types/Ticket.js"
-import { randomUUID } from "crypto"
 import prisma from "../config/prisma.js"
-
-let tickets: Ticket[] = []
 
 export const ticketsRepo = {
   create(data: { title: string; description?: string; ownerId?: string }) {

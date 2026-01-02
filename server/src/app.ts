@@ -14,30 +14,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// root routes
 app.use("/api", routes);
-
-// ticket routes
 app.use("/tickets", ticketRoutes);
-
-// auth routes
 app.use("/auth", authRoutes);
-
-// employees routes
 app.use("/employees", employeesRoutes);
-
-// bull board admin UI for queues
 app.use("/admin/queues", serverAdapter.getRouter());
 
-// health check (optional)
 app.get("/", (req, res) => {
   res.json({ message: "Server is running" });
 });
 
-// file routes
 app.use("/files", fileroutes);
 
-// 404 + error handler
 app.use(notFound);
 app.use(errorHandler);
 

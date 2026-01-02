@@ -3,7 +3,6 @@ import { upload } from "../middleware/upload.js";
 import { validateAccessToken } from "../middleware/auth.js";
 import prisma from "../config/prisma.js";
 
-// Extend Express Request to include the user added by validateAccessToken
 interface AuthRequest extends Express.Request {
   user?: {
     userId: string;
@@ -14,9 +13,6 @@ interface AuthRequest extends Express.Request {
 
 const router = Router();
 
-// -----------------------------
-// Upload File Route
-// -----------------------------
 router.post(
   "/upload",
   validateAccessToken,
@@ -27,11 +23,9 @@ router.post(
         return res.status(400).json({ error: "File or user info missing" });
       }
 
-      // For S3: multer-s3 adds `location`, for local disk storage use `path`
       const fileUrl: string =
         // @ts-ignore
-        req.file.location || // S3
-        req.file.path; // Local disk
+        req.file.location || req.file.path;
 
       const file = await prisma.file.create({
         data: {

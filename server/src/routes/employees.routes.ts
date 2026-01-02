@@ -3,9 +3,6 @@ import prisma from "../config/prisma.js";
 
 const router = Router();
 
-// Return a list of employees (users). If a user has no name field,
-// derive a display name from their email local-part so the frontend
-// can uniformly render `name`.
 router.get("/", async (req, res) => {
   try {
     const users = await prisma.user.findMany({ select: { id: true, email: true, role: true, name: true } });
@@ -17,7 +14,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Return a single employee by id
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;

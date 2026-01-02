@@ -27,7 +27,7 @@ export function validateAccessToken(
       authConfig.accessTokenSecret as string
     ) as DecodedToken;
 
-    req.user = decoded; // attach user info to request object
+    req.user = decoded;
     next();
   } catch (err) {
     console.error("Token verification error:", err);
